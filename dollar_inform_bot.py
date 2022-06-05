@@ -214,7 +214,7 @@ def getDollarInform(users):
     response = requests.get(RESOURCE_URL)
     if response.status_code == 200:
         LOG.debug(f'Request to {RESOURCE_URL} has succeeded')
-        # convert from JSON file to dict
+        # convert from JSON format to dict
         dataDict = json.loads(response.text)
         valuteDict = dataDict['Valute']
         usdDict = valuteDict['USD']
@@ -233,7 +233,7 @@ def getInformThread(argsList):
     users = argsList[0]
     tEvent = argsList[1]
 
-    schedule.every().day.at("16:56").do(getDollarInform, users)
+    schedule.every().day.at("15:00").do(getDollarInform, users)
 
     while not tEvent.is_set():
         schedule.run_pending()
